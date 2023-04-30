@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Statistics from 'components/Statistics/';
 import FeedbackOptions from 'components/FeedbackOptions';
 import Section from 'components/Section';
 import Notification from 'components/Notification';
-import css from './feedback.module.css'
+import css from './feedback.module.css';
 
 class Feedback extends React.Component {
   state = {
@@ -13,15 +14,9 @@ class Feedback extends React.Component {
   };
 
   handleClick = option => {
-    this.setState(
-      prevState => ({
-        [option]: prevState[option] + 1,
-      }),
-      () => {
-        this.countTotalFeedback();
-        this.countPositiveFeedbackPercentage();
-      }
-    );
+    this.setState(prevState => ({
+      [option]: prevState[option] + 1,
+    }));
   };
 
   countTotalFeedback = () => {
@@ -44,13 +39,14 @@ class Feedback extends React.Component {
         <h1 className={css.title}>Please leave feedback</h1>
         <Section title="FeedbackOptions">
           <FeedbackOptions
-            options={['good', 'neutral', 'bad']}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.handleClick}
           />
         </Section>
         <Section>
           {totalFeedback === 0 ? (
-            <Notification message="There is no feedback" />) : (
+            <Notification message="There is no feedback" />
+          ) : (
             <Statistics
               good={good}
               neutral={neutral}
@@ -65,5 +61,13 @@ class Feedback extends React.Component {
   }
 }
 
-export default Feedback;
+Feedback.propTypes = {
+  good: PropTypes.number,
+  neutral: PropTypes.number,
+  bad: PropTypes.number,
+  handleClick: PropTypes.func,
+  countTotalFeedback: PropTypes.func,
+  countPositiveFeedbackPercentage: PropTypes.func,
+};
 
+export default Feedback;
