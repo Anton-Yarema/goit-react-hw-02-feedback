@@ -60,14 +60,4 @@ class Feedback extends React.Component {
     );
   }
 }
-
-Feedback.propTypes = {
-  good: PropTypes.number,
-  neutral: PropTypes.number,
-  bad: PropTypes.number,
-  handleClick: PropTypes.func,
-  countTotalFeedback: PropTypes.func,
-  countPositiveFeedbackPercentage: PropTypes.func,
-};
-
 export default Feedback;
